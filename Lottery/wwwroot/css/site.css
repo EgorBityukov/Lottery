@@ -1,0 +1,88 @@
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    font-size: 14px;
+    background-color: #212121;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #212121;
+}
+
+header {
+    background-color: #212121;
+}
+
+.header__logoImage {
+    width: 120px;
+    background-image: url(../images/newLogo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 90px;
+    margin-top: 20px;
+    display: block;
+}
+
+nav {
+    width: 650px;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+    nav .nav_item {
+        padding: 10px 8px;
+        border-radius: 20px;
+        margin-top: 12px;
+        border: 1px solid transparent;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+        text-decoration: none;
+        line-height: 30px;
+    }
+
+a {
+    color: #f5bd35;
+    text-decoration: none;
+}
+
+
+
+    nav .nav_item_active {
+        border: 1px solid #3e3f48;
+        background-color: #161720;
+    }
+
+nav .nav_item span {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+nav .nav_item:hover span, nav .nav_item_active span {
+    color: #f8bc40;
+}
+
+span {
+    font-family: GoogleRoboto Condensed,sans-serif;
+    font-weight: 500;
+}
