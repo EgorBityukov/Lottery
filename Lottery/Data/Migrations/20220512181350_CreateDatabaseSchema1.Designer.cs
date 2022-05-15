@@ -4,6 +4,7 @@ using Lottery.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lottery.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220512181350_CreateDatabaseSchema1")]
+    partial class CreateDatabaseSchema1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,10 +121,7 @@ namespace Lottery.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PhotoId"), 1L, 1);
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PhotoId");
