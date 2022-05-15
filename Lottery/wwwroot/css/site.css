@@ -115,10 +115,7 @@ span {
 
 /* Кнопка выпадающего списка */
 .dropbtn:hover {
-    background-color: #4CAF50;
     color: white;
-    padding: 16px;
-    font-size: 16px;
     border: none;
 }
 
@@ -158,5 +155,38 @@ span {
 
 /* Изменение цвета фона кнопки раскрывающегося списка при отображении содержимого раскрывающегося списка */
 .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+    color: white;
+}
+
+.flex-container {
+    width: 80%;
+    margin: auto;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: center;
+    justify-content: space-around;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: distribute;
+    align-content: center;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.flex-item {
+    -ms-flex-order: 0;
+    order: 0;
+    flex: 0 1 21%;
+    -ms-flex-item-align: auto;
+    align-items: center;
+    padding: 20px 10px;
+    border: 2mm ridge #f5bd35;
 }

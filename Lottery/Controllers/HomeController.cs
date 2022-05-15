@@ -20,7 +20,7 @@ namespace Lottery.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                User.IsInRole("Admin");
+                //User.Identity.Name;
             }
             return View();
         }
