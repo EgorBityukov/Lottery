@@ -4,75 +4,38 @@
     ViewData["Title"] = "Lots";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<wrap>
+    <p>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create">Add Lot</a>
+        }
 
-<p>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="Create">Add Lot</a>
-    }
+    </p>
+    <h1>LOTTERY LOTS</h1>
+    <div class="boxesList">
+        @foreach (var item in Model)
+        {
+            <div class="boxesList__item ">
+                <a class="boxesList__item__image" asp-action="Details" asp-route-id="@item.LotId">
+                    <div class="boxesList__item__price">
+                        <span class="old_price">@Html.DisplayFor(modelItem => item.Price)</span>
+                        <span class="price">@Html.DisplayFor(modelItem => item.TicketPrice)</span> <span class="rouble"></span>
+                    </div>
+                    <img src="data:image;base64,@(Convert.ToBase64String(item.Photo.Image))" alt="">
+                    <div class="boxesList__item__gradient boxesList__item__gradient_red"></div>
+                </a>
+                <div class="boxesList__item__openBoxButton"> <a asp-action="Details" asp-route-id="@item.LotId"><span>Открыть коробку</span></a> </div>
+                <div class="boxesList__item__issuedCount"> <span>Уже выдано</span> <span>23571 товаров</span> </div>
+            </div>
 
-</p>
-@*<table class="">
-    <thead>
-    <tr>
-    <th>
-    @Html.DisplayNameFor(model => model.Name)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Price)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.TicketCount)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.TicketPrice)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Photo)
-    </th>
-    <th></th>
-    </tr>
-    </thead>*@
-@*<tbody>
-    @foreach (var item in Model)
-    {
-    <tr>
-    <td>
-    @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.TicketCount)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.TicketPrice)
-    </td>
-    <td>
-    @if (item.Photo.Image != null)
-    {
-    <img style='width:80px; height:60px;' src="data:image;base64,@(Convert.ToBase64String(item.Photo.Image))" />
-    }
-    </td>
-    <td>
-    <a asp-action="Edit" asp-route-id="@item.LotId">Edit</a> |
-    <a asp-action="Details" asp-route-id="@item.LotId">Details</a> |
-    <a asp-action="Delete" asp-route-id="@item.LotId">Delete</a>
-    </td>
-    </tr>
-    }
-    </tbody>*@
-@*</table>*@
-<div class="flex-container">
-    @foreach (var item in Model)
-    {
-        <a class="flex-item" asp-action="Details" asp-route-id="@item.LotId">
-            @if (item.Photo.Image != null)
-            {
+            @*        <a class="flex-item" asp-action="Details" asp-route-id="@item.LotId">
+                @if (item.Photo.Image != null)
+                {
                 <img style='width:200px; height:180px;' src="data:image;base64,@(Convert.ToBase64String(item.Photo.Image))" />
-            }
-            <span>@Html.DisplayFor(modelItem => item.Name) - Price: @Html.DisplayFor(modelItem => item.Price)</span>
-        </a>
-    }
-</div>
+                }
+                <span>@Html.DisplayFor(modelItem => item.Name) - Price: @Html.DisplayFor(modelItem => item.Price)</span>
+                </a>*@
+        }
+    </div>
+</wrap>

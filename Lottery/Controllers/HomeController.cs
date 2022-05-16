@@ -1,4 +1,5 @@
 ﻿using Lottery.Models;
+using Lottery.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,26 +9,37 @@ namespace Lottery.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        //private readonly UserManager<User> _userManager;
-        //private readonly SignInManager<User> _signInManager;
+        private readonly IUserInfoService _userInfoService;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserInfoService userInfoService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
+            _userInfoService = userInfoService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                //User.Identity.Name;
-            }
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public async Task<string> GetUserPhoto()
+        {    
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var image = await _userInfoService.GetImageByIdAsync(user.Id);
+                return image;
+            }
+            return null;
         }
     
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

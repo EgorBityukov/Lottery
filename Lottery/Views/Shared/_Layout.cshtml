@@ -11,10 +11,16 @@
 <body>
     <div class="wrap">
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3">
-                <a class="header__logoImage" asp-area="" asp-controller="Home" asp-action="Index"></a>
+            <a href="/" class="header__logoImage"></a>
+            <nav>
+		<a class="nav_item nav_item_active" asp-area="" asp-controller="" asp-action=""> <span>Lots</span> </a>
+        <a class="nav_item" asp-area="" asp-controller="" asp-action=""> <span>Delivery</span> </a>
+        <a class="nav_item" asp-area="" asp-controller="" asp-action=""> <span>FAQ</span> </a>
+        <a class="nav_item" asp-area="" asp-controller="" asp-action=""> <span>History</span> </a>
+	</nav>
+            @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3">
                 <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Lottery Image</a>
+                    @*<a class="header__logoImage" asp-area="" asp-controller="Home" asp-action="Index"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -37,7 +43,8 @@
                     </div>
                 </div>
                 <partial name="_LoginPartial" />
-            </nav>
+            </nav>*@
+            <partial name="_LoginPartial" />
         </header>
     </div>
     <div class="container">

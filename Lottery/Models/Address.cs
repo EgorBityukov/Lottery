@@ -16,6 +16,7 @@ namespace Lottery.Models
         public string City { get; set; }
         public string Street { get; set; }
         public string Building { get; set; }
+        public string FullName { get; set; }
 
         public virtual ICollection<UserInfo> UserInfos { get; set; }
     }

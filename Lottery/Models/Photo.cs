@@ -13,6 +13,7 @@ namespace Lottery.Models
 
         public int PhotoId { get; set; }
         public string Name { get; set; }
+        public string FileName { get; set; }
         public byte[] Image { get; set; }
 
         public virtual ICollection<Lot> Lots { get; set; }
