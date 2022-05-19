@@ -1300,8 +1300,8 @@
 }
 
 .text-info {
-  --bs-text-opacity: 1;
-  color: rgba(var(--bs-info-rgb), var(--bs-text-opacity)) !important;
+    --bs-text-opacity: 1;
+    color: #f8bc40 !important;
 }
 
 .text-warning {

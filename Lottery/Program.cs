@@ -7,13 +7,6 @@ using System.Net;
 using System.Net.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
-//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
-
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(connectionString));;
-
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>();;
 
 var config = builder.Configuration;
 
@@ -23,10 +16,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     //options.UseSqlServer(connectionString)
     options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddRoleManager<RoleManager<IdentityRole>>()
@@ -52,11 +41,11 @@ builder.Services.AddCors();
 //     options.ClientId = googleAuthNSection["ClientId"];
 //     options.ClientSecret = googleAuthNSection["ClientSecret"];
 // });
-//builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-//{
-//    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-//    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-//});
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = "281699556061-m95drffeeovvntbve8imk07juoabs2k7.apps.googleusercontent.com";
+    googleOptions.ClientSecret = "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";
+});
 
 var app = builder.Build();
 

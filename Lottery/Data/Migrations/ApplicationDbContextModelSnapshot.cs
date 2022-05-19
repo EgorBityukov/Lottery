@@ -98,14 +98,14 @@ namespace Lottery.Data.Migrations
                     b.Property<int?>("PhotoId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int?>("TicketCount")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("TicketPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TicketPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("LotId");
 
@@ -170,8 +170,8 @@ namespace Lottery.Data.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Balance")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Balance")
+                        .HasColumnType("float");
 
                     b.Property<int?>("PhotoId")
                         .HasColumnType("int");

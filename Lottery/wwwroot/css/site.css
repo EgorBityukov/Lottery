@@ -40,6 +40,15 @@ header {
     color: black;
 }
 
+.text-info {
+    --bs-text-opacity: 1;
+    color: #f8bc40 !important;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: white;
+}
+
 h1 {
     position: relative;
     font-size: 34px;
