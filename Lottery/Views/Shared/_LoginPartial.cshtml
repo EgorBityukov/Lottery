@@ -3,7 +3,6 @@
 @inject UserManager<IdentityUser> UserManager
 
 
-@*<ul class="navbar-nav">*@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="header__account">
@@ -22,28 +21,6 @@
             </form>
         </div>
     </div>
-
-    @*<div class="header__accountSettings__logout"
-        <a class="header__accountSettings__logout_title" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-        <span>Logout</span>
-        </a>*@
-
-    @*<li class="nav_item">
-        Balance:
-        <div class="dropdown">
-        <a class="dropbtn" ><span>@User.Identity?.Name</span></a>
-        <div class="dropdown-content">
-        <a asp-area="" asp-controller="Home" asp-action="Index" title="Manage">Profile</a>
-        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
-        </div>
-        </div>
-        </li>
-
-        <li class="nav_item">
-        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-        <button type="submit" class="btn"><span>Logout</span></button>
-        </form>
-        </li>*@
 }
 else
 {
@@ -60,16 +37,6 @@ else
                 </a>
             </li>
         </ul>
-
-        @*<ul class="navbar-nav">
-            <li class="nav_item">
-            <a class="" asp-area="Identity" asp-page="/Account/Register"><span>Register</span></a>
-            </li>
-            <li class="nav_item">
-            <a class="" asp-area="Identity" asp-page="/Account/Login"><span>Login</span></a>
-            </li>
-            </ul>*@
     </div>
 }
-@*</ul>*@
 

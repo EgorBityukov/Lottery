@@ -16,7 +16,7 @@ namespace Lottery.Services
 
         public async Task AddUserInfoAsync(string id)
         {
-            await _context.UserInfos.AddAsync(new Models.UserInfo() { Id = id });
+            await _context.UserInfos.AddAsync(new Models.UserInfo() { Id = id, Balance = 0 });
             await _context.SaveChangesAsync();
         }
 

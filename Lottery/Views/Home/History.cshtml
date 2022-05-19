@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Lottery.ViewModels.HistoryViewModel>
+@inject UserManager<IdentityUser> UserManager
+
+<main class="mainContent">
+    <div class="wrap">
+        <div class="wrap-h2 wrap-h2_margin">
+            <h2 class="h2_main"><span>10 last winners</span></h2>
+        </div>
+        <div class="invoiceTable">
+            <table>
+                <thead>
+                    <tr style="color: black;">
+                        <th><span>User</span></th>
+                        <th><span>Lot</span></th>
+                        <th><span>Lot price</span></th>
+                        <th><span>Tickets purchased</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var draw in Model)
+                    {
+                    <tr>
+                        <td>
+                            <div class="profile">
+                                <img src="data:image;base64,@Html.DisplayFor(modelItem => draw.UserImage)" class="profile_image" alt="@Html.DisplayFor(modelItem => draw.NickName)">
+                                <div class="text-center"><!--<a href="/user/81385">-->@Html.DisplayFor(modelItem => draw.NickName)<!--</a>--></div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="items">
+                                <img class="lot_image" src="data:image;base64,@Html.DisplayFor(modelItem => draw.LotImage)" alt="@Html.DisplayFor(modelItem => draw.LotName)" title="@Html.DisplayFor(modelItem => draw.LotName)"> 
+                            </div>
+                        </td>
+                        <td class="text-center" nowrap=""><span class="">@Html.DisplayFor(modelItem => draw.LotPrice)<span class="rouble"></span></span></td>
+                        <td class="text-center" nowrap="">
+                            <span class="">Bought: <span class="tickets_cost">@Html.DisplayFor(modelItem => draw.CountTickets)</span> tickets</span> <br>
+                            <span class="">Tickets Cost: <span class="tickets_cost">@Html.DisplayFor(modelItem => draw.TicketsPrice)</span> <span class="rouble"></span> </span>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+    <thead>
+    <tr>
+    <th>
+    @Html.DisplayNameFor(model => model.Date)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Lot)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Ticket)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Winner)
+    </th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+    <tr>
+    <td>
+    @Html.DisplayFor(modelItem => item.Date)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Lot.LotId)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Ticket.TicketId)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Winner.Id)
+    </td>
+    <td>
+    <a asp-action="Edit" asp-route-id="@item.DrawId">Edit</a> |
+    <a asp-action="Details" asp-route-id="@item.DrawId">Details</a> |
+    <a asp-action="Delete" asp-route-id="@item.DrawId">Delete</a>
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table>
+*@

@@ -1,49 +1,80 @@
 ﻿@model Lottery.Models.Lot
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Tickets";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>TICKETS</h1>
 
-<div>
+<wrap>
+    <div class="ticketList">
+
+        @foreach (var ticket in Model.Tickets)
+        {
+
+            @if (ticket.User != null)
+            {
+                <a class="ticketList__item_busy" id="@ticket.TicketId">
+                    @if (ticket.User.Photo != null)
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(ticket.User.Photo.Image)" class="ticketList__item__image">
+                    }
+                    else
+                    {
+                        <img src="~/images/avatar.png" class="ticketList__item__image">
+                    }
+                </a>
+            }
+            else
+            {
+                <a class="ticketList__item" id="@ticket.TicketId">
+                    <img src="~/images/question.png" class="ticketList__item__image">
+                    <span>@Html.DisplayFor(model => model.TicketPrice)</span>
+                </a>
+            }
+
+        }
+    </div>
+</wrap>
+
+@*<div>
     <h4>Lot</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TicketCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TicketCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TicketPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TicketPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Photo.PhotoId)
-        </dd>
+    <dt class = "col-sm-2">
+    @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt class = "col-sm-2">
+    @Html.DisplayNameFor(model => model.Price)
+    </dt>
+    <dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.Price)
+    </dd>
+    <dt class = "col-sm-2">
+    @Html.DisplayNameFor(model => model.TicketCount)
+    </dt>
+    <dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.TicketCount)
+    </dd>
+    <dt class = "col-sm-2">
+    @Html.DisplayNameFor(model => model.TicketPrice)
+    </dt>
+    <dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.TicketPrice)
+    </dd>
+    <dt class = "col-sm-2">
+    @Html.DisplayNameFor(model => model.Photo)
+    </dt>
+    <dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.Photo.PhotoId)
+    </dd>
     </dl>
-</div>
-<div>
+    </div>
+    <div>
     <a asp-action="Edit" asp-route-id="@Model?.LotId">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+    </div>*@

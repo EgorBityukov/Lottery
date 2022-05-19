@@ -13,10 +13,10 @@
         <header>
             <a href="/" class="header__logoImage"></a>
             <nav>
-		<a class="nav_item nav_item_active" asp-area="" asp-controller="" asp-action=""> <span>Lots</span> </a>
-        <a class="nav_item" asp-area="" asp-controller="" asp-action=""> <span>Delivery</span> </a>
-        <a class="nav_item" asp-area="" asp-controller="" asp-action=""> <span>FAQ</span> </a>
-        <a class="nav_item" asp-area="" asp-controller="" asp-action=""> <span>History</span> </a>
+		<a id="Lots" class="nav_item @(Html.ViewBag.CurrentTab=="Lots"?"nav_item_active":"")" asp-area="" asp-controller="" asp-action=""> <span>Lots</span> </a>
+        <a id="Delivery" class="nav_item @(Html.ViewBag.CurrentTab=="Delivery"?"nav_item_active":"")" asp-area="" asp-controller="Home" asp-action="Delivery"> <span>Delivery</span> </a>
+        <a id="Help" class="nav_item @(Html.ViewBag.CurrentTab=="Help"?"nav_item_active":"")" asp-area="" asp-controller="Home" asp-action="Help"> <span>FAQ</span> </a>
+        <a id="History" class="nav_item @(Html.ViewBag.CurrentTab=="History"?"nav_item_active":"")" asp-area="" asp-controller="Home" asp-action="History"> <span>History</span> </a>
 	</nav>
             @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3">
                 <div class="container-fluid">
@@ -61,6 +61,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/signalr/signalr.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

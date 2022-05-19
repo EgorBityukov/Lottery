@@ -5,13 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <wrap>
-    <p>
-        @if (User.IsInRole("Admin"))
-        {
-            <a asp-action="Create">Add Lot</a>
-        }
 
-    </p>
+    @if (User.IsInRole("Admin"))
+    {
+        <h3>
+            <a style="defaultButton" asp-action="Create">Add Lot</a>
+        </h3>
+    }
+
+
     <h1>LOTTERY LOTS</h1>
     <div class="boxesList">
         @foreach (var item in Model)

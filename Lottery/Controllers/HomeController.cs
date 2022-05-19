@@ -12,18 +12,43 @@ namespace Lottery.Controllers
         private readonly IUserInfoService _userInfoService;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IDrawService _drawService;
 
-        public HomeController(ILogger<HomeController> logger, IUserInfoService userInfoService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public HomeController(ILogger<HomeController> logger, 
+            IUserInfoService userInfoService, 
+            UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager,
+            IDrawService drawService)
         {
             _logger = logger;
             _userInfoService = userInfoService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _drawService = drawService;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Delivery()
+        {
+            ViewBag.CurrentTab = "Delivery";
+            return View();
+        }
+
+        public IActionResult Help()
+        {
+            ViewBag.CurrentTab = "Help";
+            return View();
+        }
+
+        public async Task<IActionResult> History()
+        {
+            var list = await _drawService.GetLastDraws();
+            ViewBag.CurrentTab = "History";
+            return View(list);
         }
 
         public IActionResult Privacy()

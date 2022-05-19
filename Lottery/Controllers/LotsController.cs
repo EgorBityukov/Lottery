@@ -8,23 +8,66 @@ using Microsoft.EntityFrameworkCore;
 using Lottery.Data;
 using Lottery.Models;
 using Lottery.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Lottery.Services;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Lottery.Controllers
 {
     public class LotsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IUserInfoService _userInfoService;
+        private readonly ILotService _lotService;
 
-        public LotsController(ApplicationDbContext context)
+        public LotsController(ApplicationDbContext context,
+            UserManager<IdentityUser> userManager,
+            IUserInfoService userInfoService,
+            ILotService lotService)
         {
             _context = context;
+            _userManager = userManager;
+            _userInfoService = userInfoService;
+            _lotService = lotService;
         }
 
         // GET: Lots
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Lots.Include(l => l.Photo);
+            var applicationDbContext = _context.Lots.Include(l => l.Photo).Include(d => d.Draws).Where(l => l.Draws.Count() == 0);
+            ViewBag.CurrentTab = "Lots";
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<JsonResult> BuyTicket(int? id)
+        {
+            Ticket ticket;
+
+            var user = await _userManager.GetUserAsync(User);
+            var userInfo = await _userInfoService.GetUserInfoByIdAsync(user.Id);
+
+            try
+            {
+                ticket = await _lotService.BuyTicketAsync(userInfo, id.Value);
+            }
+            catch(Exception ex)
+            {
+                return Json(new ResponceBuyTicketViewModel("Error", ex.Message));
+            }
+
+            if (ticket.Draws.Count()!=0)
+            {
+                return Json(new ResponceBuyTicketViewModel("Draw", Convert.ToBase64String(userInfo.Photo.Image)));
+            }
+            else
+            {
+                
+                return Json(new ResponceBuyTicketViewModel("Success", Convert.ToBase64String(userInfo.Photo.Image)));
+            }
         }
 
         // GET: Lots/Details/5
@@ -35,13 +78,14 @@ namespace Lottery.Controllers
                 return NotFound();
             }
 
-            var lot = await _context.Lots
-                .Include(l => l.Photo)
-                .FirstOrDefaultAsync(m => m.LotId == id);
+            var lot = await _lotService.GetLotByIdAsync(id.Value);
+
             if (lot == null)
             {
                 return NotFound();
             }
+
+            ViewBag.CurrentTab = "Lots";
 
             return View(lot);
         }
@@ -62,11 +106,11 @@ namespace Lottery.Controllers
         {
             Lot lot = new Lot()
             {
-                LotId =lotVM.LotId,
-                Name =lotVM.Name,
-                Price =lotVM.Price,
-                TicketCount =lotVM.TicketCount,
-                TicketPrice =lotVM.TicketPrice,
+                LotId = lotVM.LotId,
+                Name = lotVM.Name,
+                Price = lotVM.Price,
+                TicketCount = lotVM.TicketCount,
+                TicketPrice = lotVM.TicketPrice,
             };
 
             if (lotVM.Image != null)

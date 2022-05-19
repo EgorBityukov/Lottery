@@ -1,17 +1,29 @@
 using Lottery.Data;
 using Lottery.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Net.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
+//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));;
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();;
 
 var config = builder.Configuration;
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    //options.UseSqlServer(connectionString)
+    options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -25,6 +37,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
+builder.Services.AddTransient<IDrawService, DrawService>();
+builder.Services.AddTransient<ILotService, LotService>();
+builder.Services.AddTransient<IEmailSender, GmailEmailService>();
+
+builder.Services.AddSignalR();
+builder.Services.AddCors();
 
 //builder.Services.AddAuthentication()
 //.AddGoogle(options =>
@@ -66,5 +84,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Lots}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.UseCors();
+app.MapHub<ChatHub>("/chat");
 
 app.Run();
