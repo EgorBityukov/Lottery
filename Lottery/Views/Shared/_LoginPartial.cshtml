@@ -7,7 +7,15 @@
 {
     <div class="header__account">
         <div class="header__account__profile">
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="~/images/avatar.png" alt="" class="header__account__profile__avatar"></a>
+            @if (Context.Session.Get("UserImage") != null)
+            {
+                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="data:image;base64,@Context.Session.GetString("UserImage")" alt="" class="header__account__profile__avatar"></a>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="~/images/avatar.png" alt="" class="header__account__profile__avatar"></a>
+            }
+            
         </div>
         <div class="header__accountSettings">
             <div class="header__accountSettings__myProfileLink"> <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span>My Profile</span></a> </div>

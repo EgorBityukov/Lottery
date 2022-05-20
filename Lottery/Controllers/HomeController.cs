@@ -61,7 +61,7 @@ namespace Lottery.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(User);
-                var image = await _userInfoService.GetImageByIdAsync(user.Id);
+                var image = await _userInfoService.GetImageStringByIdAsync(user.Id);
                 return image;
             }
             return null;

@@ -24,6 +24,14 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
             .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
 builder.Services.AddTransient<IDrawService, DrawService>();
@@ -75,6 +83,7 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.UseCors();
+app.UseSession();
 app.MapHub<ChatHub>("/chat");
 
 app.Run();

@@ -36,7 +36,13 @@ namespace Lottery.Controllers
         // GET: Lots
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Lots.Include(l => l.Photo).Include(d => d.Draws).Where(l => l.Draws.Count() == 0);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var image = await _userInfoService.GetImageStringByIdAsync(user.Id);
+                HttpContext.Session.SetString("UserImage", image);
+            }
+            var applicationDbContext = _context.Lots.Include(l => l.Photo).Include(d => d.Draws).Take(9).Where(l => l.Draws.Count() == 0);
             ViewBag.CurrentTab = "Lots";
             return View(await applicationDbContext.ToListAsync());
         }

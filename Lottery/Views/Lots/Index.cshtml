@@ -28,7 +28,7 @@
                     <div class="boxesList__item__gradient boxesList__item__gradient_red"></div>
                 </a>
                 <div class="boxesList__item__openBoxButton"> <a asp-action="Details" asp-route-id="@item.LotId"><span>Open Lot</span></a> </div>
-                <div class="boxesList__item__issuedCount"> <span>Free tickets: </span> <span>@(item.TicketCount - item.Tickets.Where(t => t.User == null).Count()) of @Html.DisplayFor(modelItem => item.TicketCount)</span> </div>
+                <div class="boxesList__item__issuedCount"> <span>Free tickets: </span> <span>@(item.TicketCount - item.Tickets.Where(t => t.User != null).Count()) of @Html.DisplayFor(modelItem => item.TicketCount)</span> </div>
             </div>
 
             @*        <a class="flex-item" asp-action="Details" asp-route-id="@item.LotId">

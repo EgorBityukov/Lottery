@@ -20,7 +20,7 @@ namespace Lottery.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IFormFile> GetPhotoByIdAsync(string id)
+        public async Task<IFormFile> GetImageByIdAsync(string id)
         {
             var userInfo = await GetUserInfoByIdAsync(id);
             if (userInfo.Photo != null)
@@ -36,7 +36,7 @@ namespace Lottery.Services
             
         }
 
-        public async Task<string> GetImageByIdAsync(string id)
+        public async Task<string> GetImageStringByIdAsync(string id)
         {
             var userInfo = await GetUserInfoByIdAsync(id);
             if (userInfo.Photo != null)

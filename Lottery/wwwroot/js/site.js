@@ -6,7 +6,7 @@ var currentTab;
 
 
 $(document).ready(function () {
-    loadPhoto();
+    //loadPhoto();
 
     const hubConnection = new signalR.HubConnectionBuilder()
         .withUrl("/chat")

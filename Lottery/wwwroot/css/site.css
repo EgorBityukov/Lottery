@@ -693,7 +693,7 @@ h3_custom {
     flex-wrap: wrap;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    justify-content: center;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-flow: row wrap;
@@ -703,11 +703,13 @@ h3_custom {
 
 .ticketList__item {
     min-height: 90px;
-    width: 60px;
+    min-width: 90px;
     background-color: #2a2d3e;
     border-radius: 10px;
     position: relative;
-    margin-bottom: 27px;
+    margin: 15px 7px;
+    flex: 0 1 10%;
+    text-align: center;
 }
 
 .ticketList__item_busy {
@@ -735,7 +737,6 @@ h3_custom {
     height: 76px;
     border-radius: 50%;
     border: 2px solid #3a3a3a;
-    margin: 19px 0 0 23px;
     width: auto;
 }
 

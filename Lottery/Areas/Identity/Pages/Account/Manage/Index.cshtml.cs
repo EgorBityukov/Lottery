@@ -76,7 +76,7 @@ namespace Lottery.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var image = await _userInfoService.GetPhotoByIdAsync(user.Id);
+            var image = await _userInfoService.GetImageByIdAsync(user.Id);
 
             Username = userName;
             Image = image;
@@ -115,7 +115,7 @@ namespace Lottery.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var userImage = await _userInfoService.GetPhotoByIdAsync(user.Id);
+            var userImage = await _userInfoService.GetImageByIdAsync(user.Id);
             if (Input.Image != null && (userImage == null || !Input.Image.Equals(userImage)))
             {
                 await _userInfoService.SetPhotoByIdAsync(user.Id, Input.Image);
