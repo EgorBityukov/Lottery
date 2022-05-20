@@ -119,6 +119,7 @@ namespace Lottery.Areas.Identity.Pages.Account.Manage
             if (Input.Image != null && (userImage == null || !Input.Image.Equals(userImage)))
             {
                 await _userInfoService.SetPhotoByIdAsync(user.Id, Input.Image);
+                HttpContext.Session.SetString("UserImage", await _userInfoService.GetImageStringByIdAsync(user.Id));
             }
 
             var userName = await _userManager.GetUserNameAsync(user);

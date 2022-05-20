@@ -7,7 +7,7 @@
 {
     <div class="header__account">
         <div class="header__account__profile">
-            @if (Context.Session.Get("UserImage") != null)
+            @if (Context.Session.GetString("UserImage")!=null)
             {
                  <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="data:image;base64,@Context.Session.GetString("UserImage")" alt="" class="header__account__profile__avatar"></a>
             }
@@ -20,7 +20,7 @@
         <div class="header__accountSettings">
             <div class="header__accountSettings__myProfileLink"> <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span>My Profile</span></a> </div>
             <div class="header__accountSettings__money">
-                <span class="userBalance">0</span> <span class="rouble"></span>
+                <span class="userBalance">@Context.Request.Cookies["Balance"]</span> <span class="rouble"></span>
                 <div class="icon-plus" data-toggle="modal" data-target="#modalPay"> </div>
             </div>
             @*<div class="header__accountSettings__logout"> <a class="header__accountSettings__logout_title" href="/logout"><span>Выход</span></a> </div>*@

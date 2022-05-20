@@ -14,9 +14,9 @@ namespace Lottery.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IDrawService _drawService;
 
-        public HomeController(ILogger<HomeController> logger, 
-            IUserInfoService userInfoService, 
-            UserManager<IdentityUser> userManager, 
+        public HomeController(ILogger<HomeController> logger,
+            IUserInfoService userInfoService,
+            UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             IDrawService drawService)
         {
@@ -57,7 +57,7 @@ namespace Lottery.Controllers
         }
 
         public async Task<string> GetUserPhoto()
-        {    
+        {
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -66,7 +66,18 @@ namespace Lottery.Controllers
             }
             return null;
         }
-    
+
+        public async Task<string> GetUserBalace()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var userInfo = await _userInfoService.GetUserInfoByIdAsync(user.Id);
+                return userInfo.Balance.ToString();
+            }
+            return null;
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

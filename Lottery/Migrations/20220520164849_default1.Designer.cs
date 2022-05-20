@@ -4,16 +4,18 @@ using Lottery.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Lottery.Data.Migrations
+namespace Lottery.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220520164849_default1")]
+    partial class default1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,14 +100,14 @@ namespace Lottery.Data.Migrations
                     b.Property<int?>("PhotoId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("TicketCount")
                         .HasColumnType("int");
 
-                    b.Property<double?>("TicketPrice")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TicketPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("LotId");
 
@@ -170,8 +172,8 @@ namespace Lottery.Data.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Balance")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("PhotoId")
                         .HasColumnType("int");

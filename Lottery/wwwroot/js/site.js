@@ -2,11 +2,14 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-var currentTab;
 
 
 $(document).ready(function () {
     //loadPhoto();
+    //if ($(".userBalance").text() == '') {
+    //    loadUserBalance();
+    //}
+    //loadUserBalance();
 
     const hubConnection = new signalR.HubConnectionBuilder()
         .withUrl("/chat")
@@ -67,6 +70,19 @@ $(document).ready(function () {
 });
 
 
+function loadUserBalance() {
+    var apiUrl = "/Home/GetUserBalace";
+    $.ajax({
+        url: apiUrl,
+        method: "GET",
+        success: function (data) {
+            if (data != null) {
+                $(".userBalance").text(data);
+            }
+        }
+    });
+}
+
 
 function updateTicketPhoto(id, img) {
     var str = "data:image;base64," + img;
@@ -75,8 +91,6 @@ function updateTicketPhoto(id, img) {
 }
 
 function loadPhoto() {
-    var image = document.getElementsByClassName('header__account__profile__avatar');
-    //$(".header__account__profile__avatar").attr('src', 'srcImage.jpg');
     var apiUrl = "/Home/GetUserPhoto";
     $.ajax({
         url: apiUrl,
@@ -86,10 +100,6 @@ function loadPhoto() {
                 var str = "data:image;base64," + data;
                 $(".header__account__profile__avatar").attr('src', str);
             }
-            //"~/images/avatar.png"
-
-            //image.src = "data:image;base64," + data + ";quality=96&amp;crop=0,724,936,936&amp;ava=1";
         }
     });
-
 }

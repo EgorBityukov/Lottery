@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Lottery.Services;
 using Microsoft.AspNetCore.SignalR;
+using System.Security.Principal;
 
 namespace Lottery.Controllers
 {
@@ -19,11 +20,13 @@ namespace Lottery.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IUserInfoService _userInfoService;
         private readonly ILotService _lotService;
 
         public LotsController(ApplicationDbContext context,
             UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
             IUserInfoService userInfoService,
             ILotService lotService)
         {
@@ -31,6 +34,7 @@ namespace Lottery.Controllers
             _userManager = userManager;
             _userInfoService = userInfoService;
             _lotService = lotService;
+            _signInManager = signInManager;
         }
 
         // GET: Lots
@@ -40,7 +44,12 @@ namespace Lottery.Controllers
             {
                 var user = await _userManager.GetUserAsync(User);
                 var image = await _userInfoService.GetImageStringByIdAsync(user.Id);
+                var userInfo = await _userInfoService.GetUserInfoByIdAsync(user.Id);
+                var balance = userInfo.Balance;
+                //HttpContext.Response.Cookies.Append("UserImage", image);
+                HttpContext.Response.Cookies.Append("Balance", balance.ToString());
                 HttpContext.Session.SetString("UserImage", image);
+                //HttpContext.Session.SetString("Balance", balance.ToString());
             }
             var applicationDbContext = _context.Lots.Include(l => l.Photo).Include(d => d.Draws).Take(9).Where(l => l.Draws.Count() == 0);
             ViewBag.CurrentTab = "Lots";
