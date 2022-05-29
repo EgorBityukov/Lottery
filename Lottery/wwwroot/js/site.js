@@ -8,6 +8,7 @@ $(document).ready(function () {
 
     if ($(".header__account__profile__avatar").attr("src") == '/images/avatar.png') {
         loadPhoto();
+        loadUserBalance();
     }
 
     //loadPhoto();

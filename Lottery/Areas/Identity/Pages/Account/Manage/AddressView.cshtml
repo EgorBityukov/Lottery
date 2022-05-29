@@ -1,0 +1,126 @@
+﻿@page
+@using Microsoft.AspNetCore.Http.Features
+@model Lottery.Areas.Identity.Pages.Account.Manage.AddressView
+@{
+    ViewData["Title"] = "Address";
+    ViewData["ActivePage"] = ManageNavPages.Address;
+}
+
+@*<h3>@ViewData["Title"]</h3>*@
+
+<div class="profileMainContent" id="profileMainContent">
+    <span class="profileMainContent__title">Delivery form:</span>
+    <form method="post">
+        <div class="profileMainContent__wrap">
+
+            <div class="profileMainContent__wrap__row">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Address.AddressId" />
+                <div class="form-group profileMainContent__inputBlock">
+                    <span class="profileMainContent__inputBlock__title">Full Name</span>
+                    <br>
+                    <input asp-for="Address.FullName" class="profilePromo__row__input" placeholder="Full Name" data-error="Full Name" autocomplete="off">
+                    <span asp-validation-for="Address.FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group profileMainContent__inputBlock">
+                    <span class="profileMainContent__inputBlock__title">Country</span>
+                    <br>
+                    <input asp-for="Address.Country" class="profilePromo__row__input" placeholder="Country" data-error="Country" autocomplete="off">
+                    <span asp-validation-for="Address.Country" class="text-danger"></span>
+                </div>
+                <div class="form-group profileMainContent__inputBlock">
+                    <span class="profileMainContent__inputBlock__title">City</span>
+                    <br>
+                    <input asp-for="Address.City" class="profilePromo__row__input" placeholder="City" data-error="City" autocomplete="off">
+                    <span asp-validation-for="Address.City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="profileMainContent__wrap__row">
+                <div class="form-group profileMainContent__inputBlock">
+                    <span class="profileMainContent__inputBlock__title">Postal Code</span>
+                    <br>
+                    <input asp-for="Address.PostalCode" class="profilePromo__row__input" placeholder="Postal Code" data-error="Postal Code" autocomplete="off">
+                    <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group profileMainContent__inputBlock">
+                    <span class="profileMainContent__inputBlock__title">Street</span>
+                    <br>
+                    <input asp-for="Address.Street" class="profilePromo__row__input" placeholder="Street" data-error="Street" autocomplete="off">
+                    <span asp-validation-for="Address.Street" class="text-danger"></span>
+                </div>
+                <div class="form-group profileMainContent__inputBlock">
+                    <span class="profileMainContent__inputBlock__title">Building</span>
+                    <br>
+                    <input asp-for="Address.Building" class="profilePromo__row__input" placeholder="Building" data-error="Building" autocomplete="off">
+                    <span asp-validation-for="Address.Building" class="text-danger"></span>
+                </div>
+            </div>
+            <button id="btn-profile-delivery-save" type="submit" class="defaultButton"> <span>Save</span> </button>
+
+        </div>
+    </form>
+
+
+</div>
+@*@{
+    var consentFeature = HttpContext.Features.Get<ITrackingConsentFeature>();
+    @if (consentFeature?.CanTrack ?? true)
+    {
+    @if (Model.Is2faEnabled)
+    {
+    if (Model.RecoveryCodesLeft == 0)
+    {
+    <div class="alert alert-danger">
+    <strong>You have no recovery codes left.</strong>
+    <p>You must <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a> before you can log in with a recovery code.</p>
+    </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+    <div class="alert alert-danger">
+    <strong>You have 1 recovery code left.</strong>
+    <p>You can <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+    </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+    <div class="alert alert-warning">
+    <strong>You have @Model.RecoveryCodesLeft recovery codes left.</strong>
+    <p>You should <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+    </div>
+    }
+
+    if (Model.IsMachineRemembered)
+    {
+    <form method="post" style="display: inline-block">
+    <button type="submit" class="btn btn-primary">Forget this browser</button>
+    </form>
+    }
+    <a asp-page="./Disable2fa" class="btn btn-primary">Disable 2FA</a>
+    <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Reset recovery codes</a>
+    }
+
+    <h4>Authenticator app</h4>
+    @if (!Model.HasAuthenticator)
+    {
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Add authenticator app</a>
+    }
+    else
+    {
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Set up authenticator app</a>
+    <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Reset authenticator app</a>
+    }
+    }
+    else
+    {
+    <div class="alert alert-danger">
+    <strong>Privacy and cookie policy have not been accepted.</strong>
+    <p>You must accept the policy before you can enable two factor authentication.</p>
+    </div>
+    }
+    }*@
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

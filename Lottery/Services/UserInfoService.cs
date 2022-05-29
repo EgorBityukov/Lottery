@@ -24,16 +24,26 @@ namespace Lottery.Services
         public async Task TakeBalanceAsync(string id, decimal amount)
         {
             var user = await GetUserInfoByIdAsync(id);
-            if(user.Balance > amount)
+            if (user.Balance > amount)
             {
                 user.Balance -= amount;
                 await _context.SaveChangesAsync();
-            } 
+            }
         }
 
         public async Task AddUserInfoAsync(string id)
         {
-            await _context.UserInfos.AddAsync(new Models.UserInfo() { Id = id, Balance = 0 });
+            var defaultPhoto = await _context.Photos.Where(p => p.FileName.Equals("avatar.png")).FirstOrDefaultAsync();
+
+            if (defaultPhoto != null)
+            {
+                await _context.UserInfos.AddAsync(new Models.UserInfo() { Id = id, Balance = 0, Address = new Address(), Photo = defaultPhoto });
+            }
+            else
+            {
+                await _context.UserInfos.AddAsync(new Models.UserInfo() { Id = id, Balance = 0, Address = new Address() });
+            }
+
             await _context.SaveChangesAsync();
         }
 
@@ -50,7 +60,7 @@ namespace Lottery.Services
             {
                 return null;
             }
-            
+
         }
 
         public async Task<string> GetImageStringByIdAsync(string id)
