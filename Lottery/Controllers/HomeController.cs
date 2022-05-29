@@ -62,6 +62,16 @@ namespace Lottery.Controllers
             {
                 var user = await _userManager.GetUserAsync(User);
                 var image = await _userInfoService.GetImageStringByIdAsync(user.Id);
+
+                var userInfo = await _userInfoService.GetUserInfoByIdAsync(user.Id);
+                var balance = userInfo.Balance;
+                HttpContext.Response.Cookies.Append("Balance", balance.ToString());
+
+                if (image != null)
+                {
+                    HttpContext.Session.SetString("UserImage", image);
+                }
+
                 return image;
             }
             return null;
@@ -76,6 +86,40 @@ namespace Lottery.Controllers
                 return userInfo.Balance.ToString();
             }
             return null;
+        }
+
+        public IActionResult BalanceView()
+        {
+            return PartialView("Pay");
+        }
+
+        public IActionResult BalanceViewWithdraw()
+        {
+            return PartialView("Take");
+        }
+
+        [HttpPost]
+        public async Task AddBalance(decimal? balance)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                await _userInfoService.AddBalanceAsync(user.Id, balance.Value);
+                var curBalance = await GetUserBalace();
+                HttpContext.Response.Cookies.Append("Balance", curBalance);
+            }
+        }
+
+        [HttpPost]
+        public async Task TakeBalance(decimal? balance)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                await _userInfoService.TakeBalanceAsync(user.Id, balance.Value);
+                var curBalance = await GetUserBalace();
+                HttpContext.Response.Cookies.Append("Balance", curBalance);
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

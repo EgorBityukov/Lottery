@@ -1,0 +1,29 @@
+﻿<div class="modal__wrap">
+    <form id="TakeBalance">
+        <div class="close" id="closeModal"> <img src="/images/closeIcon.png" alt="Close"> </div>
+        <div class="modal__wrap__header"> <span>Take account credit</span> </div>
+        <div class="modal__wrap__content">
+            <span id="modalPay__alert" class="modalPay__subtitle">
+                Enter amount:
+            </span>
+            <input class="defaultInput defaultInput_textCenter" name="balance" value="1.0" data-min="1.0" onchange="if (this.value < 1) this.value=1.0; if (this.value > 15000) this.value=15000; calculate('xn--80ac1akgim.xn--p1ai')" onkeyup="calculate('xn--80ac1akgim.xn--p1ai');">
+            <div>
+                <br />
+                @*                <div class="modalPay__timer"> </div> <span class="modalPay__subtitle">
+                    Выберите платежную систему:
+                    </span>*@
+                @*<div class="modalPay__changePaySystem">
+
+                    <div class="modalPay__changePaySystem__item modalPay__changePaySystem__item_active" title="Qiwi" onclick="$('#depositSystem').val('qiwi');"> <img src="/templates/res/images/payment/qiwi.png" alt="Qiwi"> </div>
+                    <div class="modalPay__changePaySystem__item" onclick="$('#depositSystem').val('qiwi');"> <img src="/templates/res/images/payment/visa.png" alt="Банковская карта"> </div>
+                    <div class="modalPay__changePaySystem__item" onclick="$('#depositSystem').val('card');"> <img src="/templates/res/images/payment/yaMoney.png" alt="Яндекс.Деньги"> </div>
+
+
+                    <input id="depositSystem" name="depositSystem" value="qiwi" type="hidden">
+                    </div>*@
+                <span onclick="takeUserBalance()" class="defaultButtonWithBorder" id="paymentSubmit"> <span>Withdraw</span> </span>
+            </div>
+
+        </div>
+    </form>
+</div>

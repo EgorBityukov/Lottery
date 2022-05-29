@@ -11,5 +11,7 @@ namespace Lottery.Services
         public Task<IFormFile> GetImageByIdAsync(string id);
         public Task<string> GetImageStringByIdAsync(string id);
         public Task AddUserInfoAsync(string id);
+        public Task AddBalanceAsync(string id, decimal amount);
+        public Task TakeBalanceAsync(string id, decimal amount);
     }
 }

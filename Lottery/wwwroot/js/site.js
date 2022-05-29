@@ -5,6 +5,11 @@
 
 
 $(document).ready(function () {
+
+    if ($(".header__account__profile__avatar").attr("src") == '/images/avatar.png') {
+        loadPhoto();
+    }
+
     //loadPhoto();
     //if ($(".userBalance").text() == '') {
     //    loadUserBalance();
@@ -45,6 +50,7 @@ $(document).ready(function () {
             url: "/Lots/BuyTicket",
             data: "id=" + id,
             success: function (result) {
+                loadUserBalance();
 
                 if (result.status == "Error") {
                     alert(result.data);
@@ -67,6 +73,41 @@ $(document).ready(function () {
         })
     });
 
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $("#modalItemAdd").click(function (e) {
+
+            e.preventDefault();
+            $.get("/Home/BalanceView", function (data) {
+                $('#modalPay').html(data);
+                $('.modalOverlay').removeClass("modal_hidden");
+                $('#modalPay').removeClass("modal_hidden");
+                $('.boxesList__item__price').hide();
+            });
+        });
+    });
+
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $("#modalItemTake").click(function (e) {
+
+            e.preventDefault();
+            $.get("/Home/BalanceViewWithdraw", function (data) {
+                $('#modalPay').html(data);
+                $('.modalOverlay').removeClass("modal_hidden");
+                $('#modalPay').removeClass("modal_hidden");
+                $('.boxesList__item__price').hide();
+            });
+        });
+    });
+
+    $(document).on('click', '.close', function (e) {
+        console.log('Here');
+        $('.modalOverlay').addClass("modal_hidden");
+        $('#modalPay').addClass("modal_hidden");
+        $('.boxesList__item__price').show();
+    });
+
 });
 
 
@@ -81,6 +122,20 @@ function loadUserBalance() {
             }
         }
     });
+}
+
+function addUserBalance() {
+    console.log("addUserBalance");
+    $.post("/Home/AddBalance", $('#AddBalance').serialize(), function (data) {
+        loadUserBalance();
+    })
+}
+
+function takeUserBalance() {
+    console.log("addUserBalance");
+    $.post("/Home/TakeBalance", $('#TakeBalance').serialize(), function (data) {
+        loadUserBalance();
+    })
 }
 
 

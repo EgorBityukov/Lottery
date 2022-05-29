@@ -42,13 +42,17 @@ namespace Lottery.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _userManager.GetUserAsync(User);
-                var image = await _userInfoService.GetImageStringByIdAsync(user.Id);
-                var userInfo = await _userInfoService.GetUserInfoByIdAsync(user.Id);
-                var balance = userInfo.Balance;
-                //HttpContext.Response.Cookies.Append("UserImage", image);
-                HttpContext.Response.Cookies.Append("Balance", balance.ToString());
-                HttpContext.Session.SetString("UserImage", image);
+                //var user = await _userManager.GetUserAsync(User);
+                //var image = await _userInfoService.GetImageStringByIdAsync(user.Id);
+                //var userInfo = await _userInfoService.GetUserInfoByIdAsync(user.Id);
+                //var balance = userInfo.Balance;
+                ////HttpContext.Response.Cookies.Append("UserImage", image);
+                //HttpContext.Response.Cookies.Append("Balance", balance.ToString());
+
+                //if (image != null)
+                //{
+                //    HttpContext.Session.SetString("UserImage", image);
+                //}
                 //HttpContext.Session.SetString("Balance", balance.ToString());
             }
             var applicationDbContext = _context.Lots.Include(l => l.Photo).Include(d => d.Draws).Take(9).Where(l => l.Draws.Count() == 0);

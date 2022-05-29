@@ -14,6 +14,23 @@ namespace Lottery.Services
             _context = context;
         }
 
+        public async Task AddBalanceAsync(string id, decimal amount)
+        {
+            var user = await GetUserInfoByIdAsync(id);
+            user.Balance += amount;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task TakeBalanceAsync(string id, decimal amount)
+        {
+            var user = await GetUserInfoByIdAsync(id);
+            if(user.Balance > amount)
+            {
+                user.Balance -= amount;
+                await _context.SaveChangesAsync();
+            } 
+        }
+
         public async Task AddUserInfoAsync(string id)
         {
             await _context.UserInfos.AddAsync(new Models.UserInfo() { Id = id, Balance = 0 });

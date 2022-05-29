@@ -80,7 +80,7 @@ h1 {
 
 .header__logoImage {
     width: 120px;
-    background-image: url(../images/logo.png);
+    background-image: url(../images/logo1.png);
     background-size: contain;
     background-repeat: no-repeat;
     height: 90px;
@@ -526,14 +526,6 @@ h3_custom {
         position: absolute;
     }
 
-    .header__accountSettings__money span {
-        font-size: 16px;
-        color: #fff;
-        font-weight: 500;
-        display: inline-block;
-        margin-left: 35px;
-    }
-
 .icon-plus {
     background-image: url(../images/plus.png);
     background-repeat: no-repeat;
@@ -542,7 +534,20 @@ h3_custom {
     display: inline-block;
     position: relative;
     top: 7px;
-    left: 9px;
+    cursor: pointer;
+    opacity: .8;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.icon-minus {
+    background-image: url(../images/minus.png);
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    position: relative;
+    top: 7px;
     cursor: pointer;
     opacity: .8;
     -webkit-transition: all .3s;
@@ -666,6 +671,7 @@ h3_custom {
 
 .profileMainContent__wrap__row {
     width: 48%;
+    margin: auto;
 }
 
 .profileMainContent__title {
@@ -714,11 +720,13 @@ h3_custom {
 
 .ticketList__item_busy {
     min-height: 90px;
-    width: 60px;
+    min-width: 90px;
     background-color: #2a2d3e;
     border-radius: 10px;
     position: relative;
-    margin-bottom: 27px;
+    margin: 15px 7px;
+    flex: 0 1 10%;
+    text-align: center;
 }
 
 
@@ -909,6 +917,10 @@ h3_custom {
     align-items: baseline;
 }
 
+.delivery__wrap {
+    width: 100%;
+}
+
 .delivery__textBox {
     background-color: #2a2d3e;
     padding: 21px;
@@ -1037,4 +1049,237 @@ h3_custom {
 
 .tickets_cost {
     color: #f8c855;
+}
+
+
+input {
+    color: #fff;
+    font-size: 18px;
+}
+
+input .profilePromo__row__input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+@media (max-width: 1150px) {
+    .profileNav__item {
+        padding: 16px;
+    }
+}
+
+.active {
+    background: #f8bc40 !important;
+    color: #000;
+}
+
+.active:hover{
+    color: white !important;
+}
+
+.profileNav__item {
+    background: #161720;
+    padding: 16px 26px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.profileContent {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-top: 38px;
+}
+
+.profileNav {
+    width: 100%;
+    border-bottom: 1px solid #363946;
+    height: 36px;
+    margin-top: 30px;
+    position: relative;
+}
+
+.modal_hidden {
+    display: none !important;
+}
+
+.modal, .modalBoxWinOverlay, .modalOverlay {
+    visibility: hidden;
+    opacity: 0;
+    display: block;
+    -webkit-transition: visibility 0s,opacity .2s linear;
+    transition: visibility 0s,opacity .2s linear;
+}
+
+    .modal:not(.modal_hidden), .modalBoxWinOverlay:not(.modal_hidden), .modalOverlay:not(.modal_hidden) {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.modal {
+    position: fixed;
+    z-index: 20;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    left: 50%;
+    top: 60%;
+    width: 450px;
+    transform: translate(-50%,-50%);
+}
+
+.modal__wrap {
+    background-color: #2a2d3e;
+    margin: auto;
+    border-radius: 10px;
+    position: relative;
+    min-width: 200px;
+    -webkit-box-shadow: 0 0 20px #000;
+    box-shadow: 0 0 20px #000;
+}
+
+.modal .close {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-left: auto;
+    width: 100%;
+    -ms-flex-line-pack: right;
+    align-content: right;
+    position: absolute;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 70px;
+}
+
+    .modal .close img {
+        width: 2vw;
+        height: auto;
+        max-width: 22px;
+        min-width: 16px;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: 10px;
+    }
+
+.modal__wrap__header {
+    background-color: #1f212e;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 70px;
+    padding: 0 40px;
+}
+
+.modalPay .modal__wrap__content {
+    display: block;
+    text-align: center;
+    height: auto;
+}
+
+@media (max-width: 2000px) {
+    .modal__wrap__content {
+        padding: 16px 20px;
+    }
+}
+
+.modal__wrap__content {
+    padding: 30px 40px;
+    border-top: 1px solid #404352;
+}
+
+.modalPay__subtitle {
+    margin-top: 16px;
+    display: block;
+    color: #fff;
+    font-weight: 500;
+}
+
+.modalPay .defaultInput {
+    margin-top: 25px;
+    width: 200px;
+}
+
+.defaultInput_textCenter {
+    text-align: center;
+    padding: 12px 0;
+}
+
+.defaultInput {
+    background: #14161f;
+    border-radius: 40px;
+    border: 1px solid #3d4259;
+    padding: 25px 0 25px 25px;
+    max-width: 480px;
+    position: relative;
+    width: 90%;
+    color: #fff;
+    font-weight: 500;
+}
+
+input {
+    color: #fff;
+    font-size: 18px;
+}
+
+.modalPay__descriptionPay {
+    color: #f8bc40;
+    font-weight: 500;
+    font-size: 20px;
+    display: block;
+    margin-top: 40px;
+}
+
+.defaultButtonWithBorder {
+    background: -webkit-gradient(linear,left top,left bottom,from(#fce568),to(#ec982d));
+    background: linear-gradient(180deg,#fce568,#ec982d);
+    padding: 14px 33px;
+    border-radius: 35px;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 4px solid #956421;
+    color: #000;
+    text-decoration: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.modalOverlay:not(.modal_hidden) {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,.8);
+    position: fixed;
+    z-index: 19;
 }
