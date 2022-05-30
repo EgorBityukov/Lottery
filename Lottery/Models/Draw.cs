@@ -10,6 +10,7 @@ namespace Lottery.Models
         public DateTime? Date { get; set; }
         public int? LotId { get; set; }
         public int? TicketId { get; set; }
+        public string Status { get; set; }
 
         public virtual Lot Lot { get; set; }
         public virtual Ticket Ticket { get; set; }

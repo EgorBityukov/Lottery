@@ -122,6 +122,26 @@ namespace Lottery.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task SellLot(int drawId)
+        {
+            await _drawService.SellLot(drawId);
+            var curBalance = await GetUserBalace();
+            HttpContext.Response.Cookies.Append("Balance", curBalance);
+        }
+
+        [HttpPost]
+        public async Task OrderLot(int drawId)
+        {
+            await _drawService.OrderLot(drawId);
+        }
+
+        [HttpPost]
+        public async Task OrderChangeStatus(int drawId, string status)
+        {
+            await _drawService.ChangeStatusLot(drawId, status);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

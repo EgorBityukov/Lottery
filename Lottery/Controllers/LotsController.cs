@@ -55,9 +55,10 @@ namespace Lottery.Controllers
                 //}
                 //HttpContext.Session.SetString("Balance", balance.ToString());
             }
-            var applicationDbContext = _context.Lots.Include(l => l.Photo).Include(d => d.Draws).Take(9).Where(l => l.Draws.Count() == 0);
+            var applicationDbContext = _context.Lots.Include(l => l.Photo).Include(d => d.Draws).Where(l => l.Draws.Count() == 0).Take(9);
             ViewBag.CurrentTab = "Lots";
-            return View(await applicationDbContext.ToListAsync());
+            var list = await applicationDbContext.ToListAsync();
+            return View(list);
         }
 
         [HttpPost]

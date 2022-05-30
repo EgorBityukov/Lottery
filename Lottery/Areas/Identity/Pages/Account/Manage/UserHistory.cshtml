@@ -1,0 +1,80 @@
+﻿@page
+@using static Lottery.Areas.Identity.Pages.Account.Manage.UserHistory
+@model UserHistory
+@{
+    ViewData["Title"] = "User History";
+    ViewData["ActivePage"] = ManageNavPages.UserHistory;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<div class="invoiceTable">
+    <table>
+        <thead>
+            <tr style="color: black;">
+                <th><span>User</span></th>
+                <th><span>Lot</span></th>
+                <th><span>Lot price</span></th>
+                <th><span>Status</span></th>
+                <th><span>Action</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var draw in Model.Draws)
+            {
+                <tr>
+                    <td>
+                        <div class="profile">
+                            <img src="data:image;base64,@Html.DisplayFor(modelItem => draw.UserImage)" class="profile_image" alt="@Html.DisplayFor(modelItem => draw.NickName)">
+                            <div class="text-center"><!--<a href="/user/81385">-->@Html.DisplayFor(modelItem => draw.NickName)<!--</a>--></div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="items">
+                            <img class="lot_image" src="data:image;base64,@Html.DisplayFor(modelItem => draw.LotImage)" alt="@Html.DisplayFor(modelItem => draw.LotName)" title="@Html.DisplayFor(modelItem => draw.LotName)">
+                        </div>
+                    </td>
+                    <td class="text-center" nowrap=""><span class="">@Html.DisplayFor(modelItem => draw.LotPrice)<span class="rouble"></span></span></td>
+                    <td class="text-center" nowrap="">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.DropDownListFor(modelItem => draw.Status, new SelectList(Enum.GetValues(typeof(DrawStatuses))), draw.Status)
+                        } 
+                        else
+                        {
+                            <span>@Html.DisplayFor(modelItem => draw.Status)</span>
+                        }
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="boxesList__item__openBoxButton">
+                                <a class="OrderChangeStatus" id="@draw.DrawId">Change Status</a>
+                            </div>
+                            <div class="boxesList__item__openBoxButton">
+                                <a class="ShowAddress" id="@draw.AddressId">Show Address</a>
+                            </div>
+                        }
+                        else
+                        {
+                            @if (draw.Status.Equals("Waiting"))
+                            {
+                                <div class="boxesList__item__openBoxButton">
+                                    <a class="SellLot" id="@draw.DrawId">Sell Lot</a>
+                                </div>
+                                <div class="boxesList__item__openBoxButton">
+                                    <a class="OrderLot" id="@draw.DrawId">Order</a>
+                                </div>
+                            }
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

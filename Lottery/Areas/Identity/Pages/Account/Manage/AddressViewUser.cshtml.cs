@@ -14,26 +14,24 @@ using Microsoft.Extensions.Logging;
 
 namespace Lottery.Areas.Identity.Pages.Account.Manage
 {
-    public class AddressView : PageModel
+    public class AddressViewUser : PageModel
     {
         private readonly Lottery.Data.ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILogger<AddressView> _logger;
         private readonly IUserInfoService _userInfoService;
 
-        public AddressView(Lottery.Data.ApplicationDbContext context, IUserInfoService userInfoService,
-            UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<AddressView> logger)
+        public AddressViewUser(Lottery.Data.ApplicationDbContext context, IUserInfoService userInfoService,
+            UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
             _context = context;
             _userInfoService = userInfoService;
         }
 
         [BindProperty]
-        public Lottery.Models.Address Address { get; set; } = default!;
+        public Lottery.Models.Address UserAddress { get; set; } = default!;
 
 
         [TempData]
@@ -58,36 +56,11 @@ namespace Lottery.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound();
             }
-            Address = userAddress;
+            UserAddress = userAddress;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(object o)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Attach(Address).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AddressExists(Address.AddressId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToPage();
-        }
+        
 
         private bool AddressExists(int id)
         {

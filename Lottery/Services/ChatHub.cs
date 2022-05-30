@@ -6,7 +6,7 @@ namespace Lottery.Services
     {
         public async Task Send(string arg1, string arg2)
         {
-            await Clients.Others.SendAsync("Receive", arg1, arg2);
+            await Clients.All.SendAsync("Receive", arg1, arg2);
         }
     }
 }

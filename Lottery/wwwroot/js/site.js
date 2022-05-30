@@ -3,13 +3,12 @@
 
 // Write your JavaScript code.
 
+$(document.head).ready(function () {
+    loadPhoto();
+    loadUserBalance();
+});
 
 $(document).ready(function () {
-
-    if ($(".header__account__profile__avatar").attr("src") == '/images/avatar.png') {
-        loadPhoto();
-        loadUserBalance();
-    }
 
     //loadPhoto();
     //if ($(".userBalance").text() == '') {
@@ -107,6 +106,33 @@ $(document).ready(function () {
         $('.modalOverlay').addClass("modal_hidden");
         $('#modalPay').addClass("modal_hidden");
         $('.boxesList__item__price').show();
+    });
+
+    $(document).on('click', '.SellLot', function (e) {
+        var id = $('.SellLot').attr('id');
+        $.post("/Home/SellLot", { drawId:id }, function (data) {
+
+        });
+    });
+
+    $(document).on('click', '.OrderLot', function (e) {
+        var id = $('.OrderLot').attr('id');
+        $.post("/Home/OrderLot", { drawId: id }, function (data) {
+
+        });
+    });
+
+    $(document).on('click', '.OrderChangeStatus', function (e) {
+        var id = $('.OrderChangeStatus').attr('id');
+        var text = $('#draw_Status option:selected')[0].text;
+        $.post("/Home/OrderChangeStatus", { drawId: id, status: text }, function (data) {
+
+        });
+    });
+
+    $(document).on('click', '.ShowAddress', function (e) {
+        var id = $('.ShowAddress').attr('id');
+        window.open("./AddressViewUser?id=" + id, "User Address", 'width=600,height=600')
     });
 
 });
